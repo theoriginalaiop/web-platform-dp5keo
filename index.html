@@ -1,42 +1,39 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title></title>
-  </head>
-  <body>
-    <header>
-      <h1>Welcome to my page human beings</h1>
-    </header>
+<html>
+<head>
+    <title>Camera Example</title>
+</head>
+<body>
+    <video id="camera" autoplay></video>
+    <button id="startButton">Start Camera</button>
+    <button id="stopButton">Stop Camera</button>
 
-    <nav>
-      <ul>
-        <li><a href="#section1">Section 1</a></li>
-        <li><a href="#section2">Section 2</a></li>
-        <li><a href="#section3">Section 3</a></li>
-      </ul>
-    </nav>
+    <script>
+        // Get the video element and buttons
+        const camera = document.getElementById('camera');
+        const startButton = document.getElementById('startButton');
+        const stopButton = document.getElementById('stopButton');
 
-    <main>
-      <section id="section1">
-        <h2>Section 1</h2>
-        <p></p>
-      </section>
+        // Function to start the camera
+        async function startCamera() {
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+                camera.srcObject = stream;
+            } catch (error) {
+                console.error('Error accessing the camera:', error);
+            }
+        }
+        // Function to stop the camera
+        function stopCamera() {
+            const stream = camera.srcObject;
+            const tracks = stream.getTracks();
 
-      <section id="section2">
-        <h2>Section 2</h2>
-        <p></p>
-      </section>
-
-      <section id="section3">
-        <h2>Section 3</h2>
-        <p></p>
-      </section>
-    </main>
-
-    <footer>
-      <p>&copy; 2023 <doge class="com"></doge>. All rights reserved.</p>
-    </footer>
-  </body>
+            tracks.forEach(track => track.stop());
+            camera.srcObject = null;
+        }
+        // Add click event listeners to the buttons
+        startButton.addEventListener('click', startCamera);
+        stopButton.addEventListener('click', stopCamera);
+    </script>
+</body>
 </html>
