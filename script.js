@@ -19,7 +19,7 @@ function generateRandomNumber(min, max) {
 let result = calculateSum(5, 10);
 console.log(`The sum is: ${result}`);
 
-greet("doge");
+greet("aiop");
 
 let randomNumber = generateRandomNumber(1, 100);
 console.log(`Generated random number: ${randomNumber}`);
